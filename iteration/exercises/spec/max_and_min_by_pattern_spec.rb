@@ -26,17 +26,19 @@ RSpec.describe 'max and min by pattern' do
     expect(greatest).to eq(1000000)
   end
 
-  xit 'test 3' do
+  it 'test 3' do
     meals = ["banana", "nuts", "salad", "steak", "cake"]
     shortest_word = meals[0]
     meals.each do |meal|
-      # Your Code Here
+      if meal.length < shortest_word.length
+        shortest_word = meal
+      end
     end
 
     expect(shortest_word).to eq("nuts")
   end
 
-  xit 'test 4' do
+  it 'test 4' do
     meals = {
       breakfast: "banana",
       snack: "nuts",
@@ -46,21 +48,27 @@ RSpec.describe 'max and min by pattern' do
     }
     shortest_word = meals[meals.keys.first]
     meals.each do |meal, dish|
-      # Your Code Here
+      if dish.length<shortest_word.length
+        shortest_word = dish
+      end
     end
 
     expect(shortest_word).to eq("nuts")
   end
 
-  xit 'test 5' do
+  it 'test 5' do
     stats = [3001, 431, 1695, 0.27601, 0.340]
     most_digits = stats[0]
-    # Your Code Here
-
+    stats.each do |num|
+      if num.to_s.split('').length > most_digits.to_s.split('').length
+        most_digits = num
+      end
+    end
+    # most_digits = stats.max { |n| num.to_s.split('').length }
     expect(most_digits).to eq(0.27601)
   end
 
-  xit 'test 6' do
+  it 'test 6' do
     stats = {
       games_played: 3001,
       home_runs: 431,
@@ -69,19 +77,27 @@ RSpec.describe 'max and min by pattern' do
       on_base_percentage: 0.340
     }
     most_digits = stats[stats.keys.first]
-    # Your Code Here
-
+    stats.each do |stat,num|
+      if num.to_s.split('').length > most_digits.to_s.split('').length
+        most_digits = num
+      end
+    end
+    # most_digits = stats.max { |n| num.to_s.split('').length }
     expect(most_digits).to eq(0.27601)
   end
 
-  xit 'test 7' do
+  it 'test 7' do
     ages = [39, 45, 29, 24, 50]
-    # Your Code Here
-
+    oldest = ages[0]
+    ages.each do |age|
+      if age > oldest
+        oldest = age
+      end
+    end
     expect(oldest).to eq(50)
   end
 
-  xit 'test 8' do
+  it 'test 8' do
     ages = {
       abdi: 39,
       hassan: 45,
@@ -89,23 +105,43 @@ RSpec.describe 'max and min by pattern' do
       margaret: 24,
       miguel: 50
     }
-    # Your Code Here
-
+    oldest = {}
+    max = 39
+    ages.each do |name,age|
+      if age > max
+        oldest = {name: name.to_s, age: age}
+        max = age
+      end
+    end
+    # oldest = ages.max do |a, b|
+    #   puts a[1]
+    #   puts b[1]
+    #   puts a[1] < b[1]
+    #   a[1] < b[1]
+    # end
     expected = {name: "miguel", age: 50}
     expect(oldest).to eq(expected)
   end
 
-  xit 'test 9' do
+  it 'test 9' do
     programmers = [["katrina", "sandi", "jim", "aaron", "desi"], ["abby", "jon", "susan"]]
-    # Your Code Here
-
+    fewest_programmers = programmers[0].length
+    programmers.each do |programmer|
+      if programmer.length<fewest_programmers
+        fewest_programmers = programmer
+      end
+    end
     expect(fewest_programmers).to eq(["abby", "jon", "susan"])
   end
 
-  xit 'test 10' do
+  it 'test 10' do
     programmers = {ruby: ["katrina", "sandi", "jim", "aaron", "desi"], java: ["abby", "jon", "susan"]}
-    # Your Code Here
-
+    fewest_programmers = programmers[programmers.keys.first].length
+    programmers.each do |language,programmers|
+      if programmers.length<fewest_programmers
+        fewest_programmers = language
+      end
+    end
     expect(fewest_programmers).to eq(:java)
   end
 end
